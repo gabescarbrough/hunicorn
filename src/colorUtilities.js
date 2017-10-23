@@ -49,3 +49,17 @@ export function hexToRgb (hex) {
   let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result ? `rgb(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)})` : null
 }
+
+function randomInt(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
+export function randomHue () {
+  return randomInt(0, 360)
+}
+
+export function randomPercent () {
+  return randomInt(0, 100)
+}
