@@ -10,7 +10,13 @@ class App extends Component {
         <header className='App-header'>
           <h1 className='App-title'>Palette Picker</h1>
         </header>
-        <ColorPicker />
+        <div className='color-container'>
+          <ColorPicker />
+          <ColorPicker />
+          <ColorPicker />
+          <ColorPicker />
+          <ColorPicker />
+        </div>
       </div>
     )
   }

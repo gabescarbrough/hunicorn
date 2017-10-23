@@ -1,10 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 80px;
   padding: 20px;
   color: white;
 }
@@ -17,7 +21,8 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.color-container {
+  display: flex;
+  height: calc(100vh - 80px);
+  justify-content: space-between;
 }
