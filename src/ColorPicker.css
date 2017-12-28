@@ -14,18 +14,23 @@
     padding: 10px;
     width: 80%;
     max-width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .range {
-    display: block;
     margin: 0 auto;
     padding: 0;
     width: 90%;
 }
 
 .range-label {
-    display: block;
-    margin: 10px auto;
+    margin: 10px 0;
     text-align: center;
     max-width: 300px;
+}
+
+input[type="checkbox"] {
+    align-self: center;
+    margin-top: 20px;
 }

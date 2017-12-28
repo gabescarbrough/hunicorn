@@ -64,6 +64,7 @@ class ColorPicker extends Component {
             value={hslString}
             onChange={this.handleTextInputChange.bind(this)}
           />
+          <input type="checkbox" />
         </div>
       </div>
     )
