@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import ColorPicker from './ColorPicker'
+import Header from './components/Header'
+import Toolbar from './components/Toolbar'
+import ColorPicker from './components/ColorPicker'
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
-        <header className='App-header'>
-          <h1 className='App-title'>Palette Picker</h1>
-        </header>
+        <Header />
+        <Toolbar />
         <div className='color-container'>
-          <ColorPicker />
-          <ColorPicker />
-          <ColorPicker />
-          <ColorPicker />
-          <ColorPicker />
+          <ColorPicker hue={180} saturation={50} luminance={50} />
+          <ColorPicker hue={180} saturation={50} luminance={50} />
+          <ColorPicker hue={180} saturation={50} luminance={50} />
+          <ColorPicker hue={180} saturation={50} luminance={50} />
+          <ColorPicker hue={180} saturation={50} luminance={50} />
         </div>
       </div>
     )

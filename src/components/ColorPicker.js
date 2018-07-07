@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './ColorPicker.css'
-import {isHsl, isHex, isRgb, rgbToHsl, hexToRgb, randomHue, randomPercent} from './colorUtilities.js'
+import {isHsl, isHex, isRgb, rgbToHsl, hexToRgb, randomHue, randomPercent} from '../colorUtilities.js'
 
 class ColorPicker extends Component {
   constructor (props) {
