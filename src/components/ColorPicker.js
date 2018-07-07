@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
+import ColorInput from './ColorInput'
 import './ColorPicker.css'
-import {isHsl, isHex, isRgb, rgbToHsl, hexToRgb, randomHue, randomPercent} from '../colorUtilities.js'
+import {isHsl, isHex, isRgb, rgbToHsl, hslToHex,  hexToRgb} from '../colorUtilities.js'
 
 class ColorPicker extends Component {
   constructor (props) {
     super(props)
+    this.handleHexInputChange = this.handleHexInputChange.bind(this)
+    this.handleHslInputChange = this.handleHslInputChange.bind(this)
     this.state = {
-      hue: randomHue(),
-      saturation: randomPercent(),
-      luminance: randomPercent()
+      hue: this.props.hue,
+      saturation: this.props.saturation,
+      luminance: this.props.luminance,
+      hslInputTemp: '',
+      hexInputTemp: ''
     }
   }
   setHslState (color) {
@@ -26,18 +31,29 @@ class ColorPicker extends Component {
   handleLuminanceChange (event) {
     this.setState({luminance: event.target.value})
   }
-  handleTextInputChange (event) {
+  handleHslInputChange (event) {
     let color = event.target.value
     if (isHsl(color)) {
       this.setHslState(color)
-    } else if (isHex(color)) {
+      this.setState({hslInputTemp: ''})
+      this.setState({hexInputTemp: ''})
+    } else {
+      this.setState({hslInputTemp: color})
+    }
+  }
+  handleHexInputChange (event) {
+    let color = event.target.value
+    if (isHex(color)) {
       this.setHslState(rgbToHsl(hexToRgb(color)))
-    } else if (isRgb(color)) {
-      this.setHslState(rgbToHsl(color))
+      this.setState({hslInputTemp: ''})
+      this.setState({hexInputTemp: ''})
+    } else {
+      this.setState({hexInputTemp: color})
     }
   }
   render () {
     let hslString = 'hsl(' + this.state.hue + ',' + this.state.saturation + '%,' + this.state.luminance + '%)'
+    let hexString = hslToHex(this.state.hue, this.state.saturation, this.state.luminance)
     return (
       <div className='color' style={{backgroundColor: hslString}}>
         <div className="color-inputs">
@@ -59,11 +75,8 @@ class ColorPicker extends Component {
               value={this.state.luminance}
               type='range' onChange={this.handleLuminanceChange.bind(this)} />
           </label>
-          <input
-            type='text'
-            value={hslString}
-            onChange={this.handleTextInputChange.bind(this)}
-          />
+          <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} />
+          <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} />
           <input type="checkbox" />
         </div>
       </div>

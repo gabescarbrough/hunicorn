@@ -13,10 +13,6 @@ class Header extends Component {
     return (
       <header>
         <h1>hunicorn</h1>
-        <ul>
-          <li><a href='#'>create</a></li>
-          <li><a href='#'>explore</a></li>
-        </ul>
       </header>
     )
   }
