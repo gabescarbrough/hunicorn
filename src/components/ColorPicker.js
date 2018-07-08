@@ -6,35 +6,41 @@ import {isHsl, isHex, rgbToHsl, hslToHex,  hexToRgb} from '../colorUtilities.js'
 class ColorPicker extends Component {
   constructor (props) {
     super(props)
+    this.handleHueChange = this.handleHueChange.bind(this)
+    this.handleSaturationChange = this.handleSaturationChange.bind(this)
+    this.handleLuminanceChange = this.handleLuminanceChange.bind(this)
+    this.setHslState = this.setHslState.bind(this)
+
     this.handleHexInputChange = this.handleHexInputChange.bind(this)
     this.handleHslInputChange = this.handleHslInputChange.bind(this)
+
     this.state = {
-      hue: this.props.hue,
-      saturation: this.props.saturation,
-      luminance: this.props.luminance,
       hslInputTemp: '',
       hexInputTemp: ''
     }
   }
-  setHslState (color) {
-    let res = /hsl\(\s*(\d{1,3})\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\)/g.exec(color).slice(1)
-    this.setState({hue: res[0]})
-    this.setState({saturation: res[1]})
-    this.setState({luminance: res[2]})
+
+
+  handleHueChange(event, index) {
+    this.props.onHueChange(event, this.props.index)
   }
-  handleHueChange (event) {
-    this.setState({hue: event.target.value})
+    
+  handleSaturationChange(event, index) {
+    this.props.onSaturationChange(event, this.props.index)
   }
-  handleSaturationChange (event) {
-    this.setState({saturation: event.target.value})
+    
+  handleLuminanceChange(event, index) {
+    this.props.onLuminanceChange(event, this.props.index)
   }
-  handleLuminanceChange (event) {
-    this.setState({luminance: event.target.value})
+
+  setHslState(event, index) {
+    this.props.setHslState(event, this.props.index)
   }
+ 
   handleHslInputChange (event) {
     let color = event.target.value
     if (isHsl(color)) {
-      this.setHslState(color)
+      this.setHslState(color, this.props.index)
       this.setState({hslInputTemp: ''})
       this.setState({hexInputTemp: ''})
     } else {
@@ -44,7 +50,7 @@ class ColorPicker extends Component {
   handleHexInputChange (event) {
     let color = event.target.value
     if (isHex(color)) {
-      this.setHslState(rgbToHsl(hexToRgb(color)))
+      this.setHslState(rgbToHsl(hexToRgb(color)), this.props.index)
       this.setState({hslInputTemp: ''})
       this.setState({hexInputTemp: ''})
     } else {
@@ -52,28 +58,28 @@ class ColorPicker extends Component {
     }
   }
   render () {
-    let hslString = 'hsl(' + this.state.hue + ',' + this.state.saturation + '%,' + this.state.luminance + '%)'
-    let hexString = hslToHex(this.state.hue, this.state.saturation, this.state.luminance)
+    let hslString = 'hsl(' + this.props.hue + ',' + this.props.saturation + '%,' + this.props.luminance + '%)'
+    let hexString = hslToHex(this.props.hue, this.props.saturation, this.props.luminance)
     return (
       <div className='color' style={{backgroundColor: hslString}}>
         <div className="color-inputs">
-          <label className='range-label' style={this.state.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
+          <label className='range-label' style={this.props.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
             Hue
             <input className='range' min='0' max='360'
-              value={this.state.hue} type='range'
-              onChange={this.handleHueChange.bind(this)} />
+              value={this.props.hue} type='range'
+              onChange={this.handleHueChange} />
           </label>
-          <label className='range-label' style={this.state.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
+          <label className='range-label' style={this.props.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
             Saturation
             <input className='range' min='0' max='100'
-              value={this.state.saturation} type='range'
-              onChange={this.handleSaturationChange.bind(this)} />
+              value={this.props.saturation} type='range'
+              onChange={this.handleSaturationChange} />
           </label>
-          <label className='range-label' style={this.state.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
+          <label className='range-label' style={this.props.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>
             Luminance
             <input className='range' min='0' max='100'
-              value={this.state.luminance}
-              type='range' onChange={this.handleLuminanceChange.bind(this)} />
+              value={this.props.luminance}
+              type='range' onChange={this.handleLuminanceChange} />
           </label>
           <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} />
           <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} />
