@@ -6,6 +6,7 @@ import {isHsl, isHex, rgbToHsl, hslToHex,  hexToRgb} from '../colorUtilities.js'
 class ColorPicker extends Component {
   constructor (props) {
     super(props)
+    this.removeColor = this.removeColor.bind(this)
     this.handleHueChange = this.handleHueChange.bind(this)
     this.handleSaturationChange = this.handleSaturationChange.bind(this)
     this.handleLuminanceChange = this.handleLuminanceChange.bind(this)
@@ -20,6 +21,9 @@ class ColorPicker extends Component {
     }
   }
 
+  removeColor(index) {
+    this.props.removeColor(this.props.index)
+  }
 
   handleHueChange(event, index) {
     this.props.onHueChange(event, this.props.index)
@@ -84,6 +88,7 @@ class ColorPicker extends Component {
           <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} />
           <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} />
           <input type="checkbox" />
+          <button onClick={this.removeColor}>Remove</button>
         </div>
       </div>
     )

@@ -10,6 +10,7 @@ class App extends Component {
     super(props)
 
     this.addColor = this.addColor.bind(this)
+    this.removeColor = this.removeColor.bind(this)
     this.handleHueChange = this.handleHueChange.bind(this)
     this.handleSaturationChange = this.handleSaturationChange.bind(this)
     this.handleLuminanceChange = this.handleLuminanceChange.bind(this)
@@ -47,6 +48,11 @@ class App extends Component {
           }));
       }
   }
+  removeColor(index) {
+    let colors = [...this.state.colors]
+    colors.splice(index, 1)
+    this.setState({ colors })      
+  }
   setHslState (color, index) {
     let res = /hsl\(\s*(\d{1,3})\s*,\s*(\d+(?:\.\d+)?)%\s*,\s*(\d+(?:\.\d+)?)%\)/g.exec(color).slice(1)
     let colors = [...this.state.colors]
@@ -81,6 +87,7 @@ class App extends Component {
                     key={i} 
                     index={i} 
                     hue={color.hue} saturation={color.saturation} luminance={color.luminance} 
+                    removeColor={this.removeColor}
                     onHueChange={this.handleHueChange}
                     onSaturationChange={this.handleSaturationChange}
                     onLuminanceChange={this.handleLuminanceChange}
