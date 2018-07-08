@@ -14,7 +14,9 @@ class App extends Component {
     this.handleHueChange = this.handleHueChange.bind(this)
     this.handleSaturationChange = this.handleSaturationChange.bind(this)
     this.handleLuminanceChange = this.handleLuminanceChange.bind(this)
+    this.handleLockChange = this.handleLockChange.bind(this)
     this.setHslState = this.setHslState.bind(this)
+    this.randomColors = this.randomColors.bind(this)
 
     this.state = {
       colors:   [  
@@ -22,16 +24,25 @@ class App extends Component {
               hue: randomHue(),
               saturation: randomPercent(),
               luminance: randomPercent(),
+              locked: false,
           },
           {
               hue: randomHue(),
               saturation: randomPercent(),
               luminance: randomPercent(),
+              locked: false,
           },
           {
               hue: randomHue(),
               saturation: randomPercent(),
               luminance: randomPercent(),
+              locked: false,
+          },
+          {
+              hue: randomHue(),
+              saturation: randomPercent(),
+              luminance: randomPercent(),
+              locked: false,
           },
       ]
     }
@@ -44,6 +55,7 @@ class App extends Component {
                   hue: randomHue(),
                   saturation: randomPercent(),
                   luminance: randomPercent(),
+                  locked: false,
               }] 
           }));
       }
@@ -76,21 +88,41 @@ class App extends Component {
     colors[index].luminance = event.target.value
     this.setState({ colors })
   }
+  handleLockChange (index) {
+    let colors = [...this.state.colors]
+    colors[index].locked = !colors[index].locked
+    this.setState({ colors })
+  }
+  randomColors (event, index) {
+    let colors = [...this.state.colors]
+
+    for(let i = 0; i < colors.length; i++){
+        if(colors[i].locked === false){
+            colors[i].hue = randomHue()
+            colors[i].saturation = randomPercent()
+            colors[i].luminance = randomPercent()
+        }
+    }
+
+    this.setState({ colors })
+  }
 
   render () {
     return (
       <div className='App'>
-        <Header numOfColors={this.state.colors.length} addColorHandler={this.addColor} />
+        <Header numOfColors={this.state.colors.length} addColorHandler={this.addColor} randomHandler={this.randomColors} />
         <div className='color-container'>
             {this.state.colors.map((color, i) => (
                 <ColorPicker 
                     key={i} 
                     index={i} 
+                    locked={color.locked}
                     hue={color.hue} saturation={color.saturation} luminance={color.luminance} 
                     removeColor={this.removeColor}
                     onHueChange={this.handleHueChange}
                     onSaturationChange={this.handleSaturationChange}
                     onLuminanceChange={this.handleLuminanceChange}
+                    onLockChange={this.handleLockChange}
                     setHslState={this.setHslState}
                 />
             ))}

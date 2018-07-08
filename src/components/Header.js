@@ -4,7 +4,12 @@ import './Header.css'
 class Header extends Component {
   constructor (props) {
     super(props)
+    this.randomHandler = this.randomHandler.bind(this)
     this.addColorHandler = this.addColorHandler.bind(this)
+  }
+
+  randomHandler() {
+    this.props.randomHandler()
   }
 
   addColorHandler() {
@@ -16,6 +21,7 @@ class Header extends Component {
     return (
       <header>
         <h1>hunicorn</h1>
+        <button onClick={this.props.randomHandler}>Random</button>
         <button disabled={addIsDisabled} onClick={this.props.addColorHandler}>Add Color</button>
       </header>
     )

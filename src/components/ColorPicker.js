@@ -10,6 +10,7 @@ class ColorPicker extends Component {
     this.handleHueChange = this.handleHueChange.bind(this)
     this.handleSaturationChange = this.handleSaturationChange.bind(this)
     this.handleLuminanceChange = this.handleLuminanceChange.bind(this)
+    this.handleLockChange = this.handleLockChange.bind(this)
     this.setHslState = this.setHslState.bind(this)
 
     this.handleHexInputChange = this.handleHexInputChange.bind(this)
@@ -35,6 +36,10 @@ class ColorPicker extends Component {
     
   handleLuminanceChange(event, index) {
     this.props.onLuminanceChange(event, this.props.index)
+  }
+
+  handleLockChange(index) {
+    this.props.onLockChange(this.props.index)
   }
 
   setHslState(event, index) {
@@ -87,7 +92,7 @@ class ColorPicker extends Component {
           </label>
           <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} />
           <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} />
-          <input type="checkbox" />
+          <input type="checkbox" checked={this.props.locked} onClick={this.handleLockChange} />
           <button onClick={this.removeColor}>Remove</button>
         </div>
       </div>
