@@ -6,6 +6,7 @@ class Header extends Component {
     super(props)
     this.randomHandler = this.randomHandler.bind(this)
     this.addColorHandler = this.addColorHandler.bind(this)
+    this.handleSave = this.handleSave.bind(this)
   }
 
   randomHandler() {
@@ -15,6 +16,10 @@ class Header extends Component {
   addColorHandler() {
     this.props.addColorHandler()
   }
+    
+  handleSave() {
+    this.props.handleSave()
+  }
 
   render () {
     const addIsDisabled = this.props.numOfColors >= 7;
@@ -23,6 +28,7 @@ class Header extends Component {
         <h1>hunicorn</h1>
         <button onClick={this.props.randomHandler}>Random</button>
         <button disabled={addIsDisabled} onClick={this.props.addColorHandler}>Add Color</button>
+        <button onClick={this.props.handleSave}>Save</button>
       </header>
     )
   }

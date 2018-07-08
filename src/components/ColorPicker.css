@@ -6,7 +6,6 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    transition: .25s ease;
 }
 
 .color-inputs {

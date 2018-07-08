@@ -17,6 +17,7 @@ class App extends Component {
     this.handleLockChange = this.handleLockChange.bind(this)
     this.setHslState = this.setHslState.bind(this)
     this.randomColors = this.randomColors.bind(this)
+    this.handleSave = this.handleSave.bind(this)
 
     this.state = {
       colors:   [  
@@ -47,7 +48,20 @@ class App extends Component {
       ]
     }
   }
-
+  componentDidMount(){
+      this.loadFromUrl()
+  }
+  loadFromUrl(){
+      if(window.location.pathname !== '/'){
+            let colors = window.location.pathname
+            colors = colors.split('/')
+            colors.splice(0,1)
+            colors = colors.map(color => encodeURIComponent(color))
+            colors = colors.map(color => color.split('-'))
+            colors = colors.map(color => color = {hue: color[0], saturation: color[1], luminance: color[2], locked: false})
+            this.setState({ colors })      
+        }
+  }
   addColor(){
       if(this.state.colors.length < 7){
           this.setState(prevState => ({
@@ -107,10 +121,16 @@ class App extends Component {
     this.setState({ colors })
   }
 
+   handleSave(colorsArray){
+       let url = '';
+       this.state.colors.map((color) => url += '/' +  color.hue + '-' + color.saturation + '-' + color.luminance)
+       window.history.pushState(this.state.colors, 'palette', url)
+   }
+
   render () {
     return (
       <div className='App'>
-        <Header numOfColors={this.state.colors.length} addColorHandler={this.addColor} randomHandler={this.randomColors} />
+        <Header numOfColors={this.state.colors.length} addColorHandler={this.addColor} randomHandler={this.randomColors} handleSave={this.handleSave} />
         <div className='color-container'>
             {this.state.colors.map((color, i) => (
                 <ColorPicker 
