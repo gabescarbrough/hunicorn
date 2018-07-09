@@ -122,9 +122,9 @@ class App extends Component {
   }
 
    handleSave(colorsArray){
-       let url = '/#';
+       let url = '';
        this.state.colors.map((color) => url += '/' +  color.hue + '-' + color.saturation + '-' + color.luminance)
-       window.history.pushState(this.state.colors, 'palette', url)
+       window.location.hash = url
    }
 
   render () {
