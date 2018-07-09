@@ -52,8 +52,8 @@ class App extends Component {
       this.loadFromUrl()
   }
   loadFromUrl(){
-      if(window.location.pathname !== '/'){
-            let colors = window.location.pathname
+      if(window.location.hash){
+            let colors = window.location.hash
             colors = colors.split('/')
             colors.splice(0,1)
             colors = colors.map(color => encodeURIComponent(color))
@@ -122,7 +122,7 @@ class App extends Component {
   }
 
    handleSave(colorsArray){
-       let url = '';
+       let url = '/#';
        this.state.colors.map((color) => url += '/' +  color.hue + '-' + color.saturation + '-' + color.luminance)
        window.history.pushState(this.state.colors, 'palette', url)
    }
