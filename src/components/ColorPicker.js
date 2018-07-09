@@ -90,10 +90,10 @@ class ColorPicker extends Component {
               value={this.props.luminance}
               type='range' onChange={this.handleLuminanceChange} />
           </label>
-          <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} />
-          <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} />
+          <ColorInput color={hslString} temp={this.state.hslInputTemp} onColorInputChange={this.handleHslInputChange} isBright={this.props.luminance < 50} />
+          <ColorInput color={hexString} temp={this.state.hexInputTemp} onColorInputChange={this.handleHexInputChange} isBright={this.props.luminance < 50} />
           <input type="checkbox" checked={this.props.locked} onClick={this.handleLockChange} />
-          <button onClick={this.removeColor}>Remove</button>
+          <button onClick={this.removeColor} style={this.props.luminance < 50 ? {color: 'hsla(0,0%,100%,.6)'} : {color: 'hsla(0,0%,0%,.6)'}}>Remove</button>
         </div>
       </div>
     )

@@ -26,9 +26,11 @@ class Header extends Component {
     return (
       <header>
         <h1>hunicorn</h1>
-        <button onClick={this.props.randomHandler}>Random</button>
-        <button disabled={addIsDisabled} onClick={this.props.addColorHandler}>Add Color</button>
-        <button onClick={this.props.handleSave}>Save</button>
+        <div className='buttons'>
+            <button onClick={this.props.randomHandler}>Random</button>
+            <button disabled={addIsDisabled} onClick={this.props.addColorHandler}>Add Color</button>
+            <button onClick={this.props.handleSave}>Save</button>
+        </div>
       </header>
     )
   }

@@ -32,5 +32,14 @@
 
 input[type="checkbox"] {
     align-self: center;
-    margin-top: 20px;
+    margin: 20px 0;
+}
+
+input[type=text] {
+    margin: 2px;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    border-bottom: 1px solid;
 }
