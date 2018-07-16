@@ -1,24 +1,37 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,700,900');
 
 header {
-    height: 50px;
     width: 100%;
     background: #eee;
     padding: 6px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 header h1 {
-    margin: 0 10px;
+    margin: 0;
     font-family: Roboto;
     font-weight: 700;
     color: hsla(0,0%,0%,.6);
-    float: left;
 }
 
 header button {
     border: none;
-    margin: 0 15px
+    margin: 10px 15px 10px 0;
+    padding: 0;
 }
+
+@media (min-width: 800px) {
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    header h1 {
+        margin: 0 10px;
+    }
+
+    header button {
+        margin: 0 15px;
+    }
+}
+

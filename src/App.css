@@ -2,12 +2,6 @@
   box-sizing: border-box;
 }
 
-.color-container {
-  display: flex;
-  height: calc(100vh - 50px);
-  justify-content: space-between;
-}
-
 button {
     margin: 2px;
     padding: 5px;
@@ -19,4 +13,17 @@ button {
 
 button:hover {
     cursor: pointer;
+}
+
+button:disabled {
+    color: hsla(0,0%,0%,.3);
+}
+
+@media (min-width: 800px) {
+    .color-container {
+      display: flex;
+      height: calc(100vh - 50px);
+      justify-content: space-between;
+      overflow-x: scroll;
+    }
 }
